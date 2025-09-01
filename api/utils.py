@@ -18,6 +18,9 @@ def convert_utc_iso_to_target_timezone(utc_iso_str: str, target_timezone_str: st
         return
 
     try:
+        if utc_iso_str.endswith("Z"):
+            utc_iso_str = utc_iso_str.replace("Z", "+00:00")
+
         utc_dt = datetime.fromisoformat(utc_iso_str)
     except ValueError:
         return
