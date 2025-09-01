@@ -4,7 +4,7 @@ import requests
 from fastapi import Depends, FastAPI, HTTPException, Request, responses, status
 from sqlalchemy.orm import Session
 
-from .db import City, WeatherObservation, get_db, get_db_gen, select
+from .db import City, WeatherObservation, get_db, get_db_gen, init_db, select
 from .logging import get_logger
 from .models import *
 from .scheduler import add_job, remove_job, shutdown_scheduler, start_scheduler, update_job_interval
@@ -21,6 +21,7 @@ OK = responses.JSONResponse({"status": "ok"}, status_code=status.HTTP_200_OK)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # On startup do this
+    init_db()
     try:
         db = get_db()
         jobs = db.execute(select(City)).scalars().all()

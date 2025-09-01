@@ -55,7 +55,8 @@ class Log(Base):
     message: str = Column(String)
 
 
-Base.metadata.create_all(bind=engine)
+def init_db():
+    Base.metadata.create_all(bind=engine)
 
 
 def get_db_gen() -> Generator[Session, Any, None]:
