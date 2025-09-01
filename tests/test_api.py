@@ -153,9 +153,9 @@ def test_get_city_temperatures(client: TestClient):
     # Test getting non-existing weather reports
     data = {"city_id": 9999, "temperature_unit": "F", "timezone": "America/New_York"}
     response = client.post("/reports/", json=data)
-    response.status_code == 404
+    assert response.status_code == 404
 
     # Test sending a invalid timezone
     data = {"city_id": 1, "temperature_unit": "C", "timezone": "Invalid/Timezone"}
     response = client.post("/reports/", json=data)
-    response.status_code == 422
+    assert response.status_code == 422
