@@ -15,7 +15,6 @@ def start_server(host: str, port: int, reload: bool):
 def make_request(method: str, base_url: str, endpoint: str, params: dict | None = None) -> dict:
     """Make HTTP request to the API"""
     url = f"{base_url}{endpoint}"
-    print(params)
     try:
         if method == "GET":
             response = requests.get(url)
